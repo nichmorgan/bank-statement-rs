@@ -1,5 +1,5 @@
-use bank_statement_rs::{ParsedTransaction, ParserBuilder};
 use bank_statement_rs::errors::StatementParseError;
+use bank_statement_rs::{ParsedTransaction, ParserBuilder};
 use chrono::NaiveDate;
 use std::env;
 
@@ -46,9 +46,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let content = std::fs::read_to_string(file_path)?;
 
-    let transactions: Vec<MyTransaction> = ParserBuilder::new()
-        .content(&content)
-        .parse_into()?;
+    let transactions: Vec<MyTransaction> = ParserBuilder::new().content(&content).parse_into()?;
 
     println!("Found {} custom transactions\n", transactions.len());
 

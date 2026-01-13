@@ -65,9 +65,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
 
         println!("\nExample 2: Auto-detect format without filename");
-        let transactions = ParserBuilder::new()
-            .content(&qfx_content)
-            .parse()?;
+        let transactions = ParserBuilder::new().content(&qfx_content).parse()?;
 
         println!("Found {} transactions", transactions.len());
 

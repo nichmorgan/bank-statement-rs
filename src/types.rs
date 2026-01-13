@@ -69,15 +69,7 @@ mod tests {
         Some("Test memo".to_string()),
         true
     )]
-    #[case(
-        "CREDIT",
-        "20251225000000",
-        "1500.00",
-        None,
-        None,
-        None,
-        true
-    )]
+    #[case("CREDIT", "20251225000000", "1500.00", None, None, None, true)]
     #[case(
         "DEBIT",
         "invalid_date",

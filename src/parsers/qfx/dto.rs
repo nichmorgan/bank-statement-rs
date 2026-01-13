@@ -91,8 +91,7 @@ impl QfxTransaction {
         Ok(QfxTransaction {
             trn_type: raw.trn_type,
             dt_posted: raw.dt_posted,
-            amount: Decimal::from_str(&raw.amount)
-                .map_err(|e| format!("Invalid amount: {}", e))?,
+            amount: Decimal::from_str(&raw.amount).map_err(|e| format!("Invalid amount: {}", e))?,
             fitid: raw.fitid,
             name: raw.name,
             memo: raw.memo,

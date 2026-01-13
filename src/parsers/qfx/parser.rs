@@ -31,12 +31,20 @@ impl Parser for QfxParser {
         let ofx_end = xml_content.find("</OFX>").ok_or("Missing </OFX> tag")?;
         let ofx_content = &xml_content[ofx_start..=ofx_end + 5];
 
-        let ofx: OfxXml = serde_xml_rs::from_str(ofx_content)
-            .map_err(|e| format!("XML parse error: {}", e))?;
+        let ofx: OfxXml =
+            serde_xml_rs::from_str(ofx_content).map_err(|e| format!("XML parse error: {}", e))?;
 
-        let raw_transactions = ofx.bank_msgs
+        let raw_transactions = ofx
+            .bank_msgs
             .map(|b| b.stmt_trn_rs.stmt_rs.bank_transaction_list.transactions)
-            .or_else(|| ofx.cc_msgs.map(|c| c.cc_stmt_trn_rs.cc_stmt_rs.bank_transaction_list.transactions))
+            .or_else(|| {
+                ofx.cc_msgs.map(|c| {
+                    c.cc_stmt_trn_rs
+                        .cc_stmt_rs
+                        .bank_transaction_list
+                        .transactions
+                })
+            })
             .ok_or("No transaction data found")?;
 
         raw_transactions
@@ -189,7 +197,11 @@ VERSION:102
     #[case(None, "OFXHEADER:", true)]
     #[case(None, "DATA:OFXSGML", true)]
     #[case(None, "random content", false)]
-    fn test_is_supported(#[case] filename: Option<&str>, #[case] content: &str, #[case] expected: bool) {
+    fn test_is_supported(
+        #[case] filename: Option<&str>,
+        #[case] content: &str,
+        #[case] expected: bool,
+    ) {
         assert_eq!(QfxParser::is_supported(filename, content), expected);
     }
 

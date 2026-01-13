@@ -30,7 +30,8 @@ impl TryFrom<QfxDate> for NaiveDate {
     type Error = StatementParseError;
 
     fn try_from(date_str: QfxDate) -> Result<Self, Self::Error> {
-        let clean = date_str.0
+        let clean = date_str
+            .0
             .split(&['[', '.'][..])
             .next()
             .ok_or(StatementParseError::QfxDateInvalidFormat)?
@@ -40,12 +41,17 @@ impl TryFrom<QfxDate> for NaiveDate {
             return Err(StatementParseError::QfxDateInvalidFormat);
         }
 
-        let year = clean[0..4].parse().map_err(|_| StatementParseError::QfxDateInvalidFormat)?;
-        let month = clean[4..6].parse().map_err(|_| StatementParseError::QfxDateInvalidFormat)?;
-        let day = clean[6..8].parse().map_err(|_| StatementParseError::QfxDateInvalidFormat)?;
+        let year = clean[0..4]
+            .parse()
+            .map_err(|_| StatementParseError::QfxDateInvalidFormat)?;
+        let month = clean[4..6]
+            .parse()
+            .map_err(|_| StatementParseError::QfxDateInvalidFormat)?;
+        let day = clean[6..8]
+            .parse()
+            .map_err(|_| StatementParseError::QfxDateInvalidFormat)?;
 
-        NaiveDate::from_ymd_opt(year, month, day)
-            .ok_or(StatementParseError::QfxDateInvalidFormat)
+        NaiveDate::from_ymd_opt(year, month, day).ok_or(StatementParseError::QfxDateInvalidFormat)
     }
 }
 
@@ -81,7 +87,10 @@ mod tests {
         let date: QfxDate = date_str.into();
         let result: Result<NaiveDate, _> = date.try_into();
         assert!(result.is_err());
-        assert!(matches!(result.unwrap_err(), StatementParseError::QfxDateInvalidFormat));
+        assert!(matches!(
+            result.unwrap_err(),
+            StatementParseError::QfxDateInvalidFormat
+        ));
     }
 
     #[test]

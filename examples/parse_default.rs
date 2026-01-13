@@ -13,9 +13,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let content = std::fs::read_to_string(file_path)?;
 
-    let transactions = ParserBuilder::new()
-        .content(&content)
-        .parse()?;
+    let transactions = ParserBuilder::new().content(&content).parse()?;
 
     println!("Found {} transactions\n", transactions.len());
 

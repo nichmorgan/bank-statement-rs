@@ -1,6 +1,6 @@
 use std::fs;
 
-use crate::{types::Transaction, errors::StatementParseError, parsers::prelude::*};
+use crate::{errors::StatementParseError, parsers::prelude::*, types::Transaction};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -18,9 +18,12 @@ impl FileFormat {
     fn parse_raw(&self, content: &str) -> Result<Vec<ParsedTransaction>, StatementParseError> {
         match self {
             FileFormat::Qfx => {
-                let transactions = QfxParser::parse(content)
-                    .map_err(StatementParseError::ParseFailed)?;
-                Ok(transactions.into_iter().map(ParsedTransaction::Qfx).collect())
+                let transactions =
+                    QfxParser::parse(content).map_err(StatementParseError::ParseFailed)?;
+                Ok(transactions
+                    .into_iter()
+                    .map(ParsedTransaction::Qfx)
+                    .collect())
             }
         }
     }
@@ -89,25 +92,19 @@ impl ParserBuilder {
     where
         T: TryFrom<ParsedTransaction, Error = StatementParseError>,
     {
-        let format = self.format
-            .map(Ok)
-            .unwrap_or_else(|| FileFormat::detect(
-                self.filepath.as_deref(),
-                self.content.as_deref(),
-            ))?;
+        let format = self.format.map(Ok).unwrap_or_else(|| {
+            FileFormat::detect(self.filepath.as_deref(), self.content.as_deref())
+        })?;
 
-        let content = self.content
-            .map(Ok)
-            .unwrap_or_else(|| {
-                self.filepath
-                    .ok_or(StatementParseError::MissingContentAndFilepath)
-                    .and_then(|path| fs::read_to_string(path).map_err(Into::into))
-            })?;
+        let content = self.content.map(Ok).unwrap_or_else(|| {
+            self.filepath
+                .ok_or(StatementParseError::MissingContentAndFilepath)
+                .and_then(|path| fs::read_to_string(path).map_err(Into::into))
+        })?;
 
         format.parse(&content)
     }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -139,14 +136,15 @@ mod tests {
     #[test]
     fn test_builder_missing_content() {
         let result: Result<Vec<Transaction>, _> = ParserBuilder::new().parse();
-        assert!(matches!(result, Err(StatementParseError::UnsupportedFormat)));
+        assert!(matches!(
+            result,
+            Err(StatementParseError::UnsupportedFormat)
+        ));
     }
 
     #[test]
     fn test_builder_with_format() {
-        let builder = ParserBuilder::new()
-            .content("test")
-            .format(FileFormat::Qfx);
+        let builder = ParserBuilder::new().content("test").format(FileFormat::Qfx);
 
         assert!(builder.format.is_some());
         assert_eq!(builder.format.unwrap(), FileFormat::Qfx);
@@ -255,14 +253,15 @@ mod tests {
             .parse();
 
         assert!(result.is_err());
-        assert!(matches!(result.unwrap_err(), StatementParseError::UnsupportedFormat));
+        assert!(matches!(
+            result.unwrap_err(),
+            StatementParseError::UnsupportedFormat
+        ));
     }
 
     #[test]
     fn test_parse_no_content_no_filepath() {
-        let result = ParserBuilder::new()
-            .format(FileFormat::Qfx)
-            .parse();
+        let result = ParserBuilder::new().format(FileFormat::Qfx).parse();
 
         assert!(result.is_err());
     }
@@ -278,14 +277,14 @@ mod tests {
     }
 
     #[rstest]
-    #[case(None, Some(SAMPLE_QFX), true)]  // Detect by content
-    #[case(Some("statement.qfx"), None, true)]  // Detect by .qfx extension
-    #[case(Some("statement.ofx"), None, true)]  // Detect by .ofx extension
-    #[case(Some("statement.QFX"), Some(SAMPLE_QFX), true)]  // Case insensitive with content
-    #[case(Some("statement.OFX"), Some(SAMPLE_QFX), true)]  // Case insensitive with content
-    #[case(Some("statement.csv"), Some("random content"), false)]  // Unsupported
-    #[case(None, None, false)]  // No input
-    #[case(Some("statement.txt"), Some("not ofx"), false)]  // Unsupported content
+    #[case(None, Some(SAMPLE_QFX), true)] // Detect by content
+    #[case(Some("statement.qfx"), None, true)] // Detect by .qfx extension
+    #[case(Some("statement.ofx"), None, true)] // Detect by .ofx extension
+    #[case(Some("statement.QFX"), Some(SAMPLE_QFX), true)] // Case insensitive with content
+    #[case(Some("statement.OFX"), Some(SAMPLE_QFX), true)] // Case insensitive with content
+    #[case(Some("statement.csv"), Some("random content"), false)] // Unsupported
+    #[case(None, None, false)] // No input
+    #[case(Some("statement.txt"), Some("not ofx"), false)] // Unsupported content
     fn test_file_format_detect(
         #[case] filename: Option<&str>,
         #[case] content: Option<&str>,
@@ -297,7 +296,10 @@ mod tests {
             assert_eq!(result.unwrap(), FileFormat::Qfx);
         } else {
             assert!(result.is_err());
-            assert!(matches!(result.unwrap_err(), StatementParseError::UnsupportedFormat));
+            assert!(matches!(
+                result.unwrap_err(),
+                StatementParseError::UnsupportedFormat
+            ));
         }
     }
 
