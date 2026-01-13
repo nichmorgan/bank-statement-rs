@@ -2,6 +2,14 @@
 name = "bank-statement-rs"
 version = "0.1.0"
 edition = "2024"
+authors = ["Morgan Nicholson <nich.dev@pm.me>"]
+description = "Rust library for parsing bank and credit card transaction history from multiple financial export formats"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/nichmorgan/bank-statement-rs"
+documentation = "https://docs.rs/bank-statement-rs"
+readme = "README.md"
+keywords = ["banking", "qfx", "ofx", "parser", "finance"]
+categories = ["parser-implementations", "encoding"]
 
 [dependencies]
 chrono = { version = "0.4.42", features = ["serde"] }
