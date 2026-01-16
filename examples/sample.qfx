@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OFX>
+    <BANKMSGSRSV1>
+        <STMTTRNRS>
+            <STMTRS>
+                <BANKTRANLIST>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT</TRNTYPE>
+                        <DTPOSTED>20251226120000</DTPOSTED>
+                        <TRNAMT>-50.00</TRNAMT>
+                        <FITID>202512260</FITID>
+                        <NAME>Coffee Shop</NAME>
+                        <MEMO>Morning coffee</MEMO>
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT</TRNTYPE>
+                        <DTPOSTED>20251225120000</DTPOSTED>
+                        <TRNAMT>1500.00</TRNAMT>
+                        <FITID>202512250</FITID>
+                        <NAME>ACME Corp Payroll</NAME>
+                        <MEMO>Salary deposit</MEMO>
+                    </STMTTRN>
+                </BANKTRANLIST>
+            </STMTRS>
+        </STMTTRNRS>
+    </BANKMSGSRSV1>
+</OFX>

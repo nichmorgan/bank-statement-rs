@@ -1,0 +1,31 @@
+Date,Type,Description,Amount,FITID,Memo
+2025-12-01,DEBIT,Supermarket,-245.90,20251201001,Groceries
+2025-12-02,DEBIT,Gas Station,-180.00,20251202001,Fuel
+2025-12-03,DEBIT,Streaming Service,-39.90,20251203001,Monthly subscription
+2025-12-04,DEBIT,Restaurant,-120.50,20251204001,Dinner with friends
+2025-12-05,CREDIT,Freelance Payment,600.00,20251205001,Website project
+2025-12-06,DEBIT,Pharmacy,-67.30,20251206001,Medicines
+2025-12-07,DEBIT,Coffee Shop,-18.00,20251207001,Afternoon coffee
+2025-12-08,DEBIT,Online Shopping,-320.99,20251208001,Electronics
+2025-12-09,CREDIT,Transfer from Savings,500.00,20251209001,Personal transfer
+2025-12-10,DEBIT,Electricity Bill,-210.45,20251210001,November bill
+2025-12-11,DEBIT,Water Bill,-95.80,20251211001,Monthly bill
+2025-12-12,DEBIT,Internet Provider,-129.90,20251212001,Home internet
+2025-12-13,DEBIT,Gym Membership,-89.90,20251213001,Monthly fee
+2025-12-14,DEBIT,Fast Food,-42.75,20251214001,Lunch
+2025-12-15,CREDIT,ACME Corp Payroll,1500.00,20251215001,Salary deposit
+2025-12-16,DEBIT,Rent,-850.00,20251216001,December rent
+2025-12-17,DEBIT,Public Transport,-55.00,20251217001,Bus card refill
+2025-12-18,DEBIT,Bookstore,-120.00,20251218001,Programming books
+2025-12-19,DEBIT,Music Streaming,-21.90,20251219001,Subscription
+2025-12-20,CREDIT,Refund Online Store,89.99,20251220001,Product return
+2025-12-21,DEBIT,Cinema,-48.00,20251221001,Movie night
+2025-12-22,DEBIT,Gift Shop,-150.00,20251222001,Christmas gifts
+2025-12-23,DEBIT,Bakery,-25.40,20251223001,Breakfast
+2025-12-24,DEBIT,Supermarket,-310.75,20251224001,Holiday groceries
+2025-12-25,CREDIT,Bonus Payment,750.00,20251225001,Christmas bonus
+2025-12-26,DEBIT,Coffee Shop,-50.00,20251226001,Morning coffee
+2025-12-27,DEBIT,Restaurant,-200.00,20251227001,Family lunch
+2025-12-28,DEBIT,Gas Station,-160.00,20251228001,Fuel
+2025-12-29,CREDIT,Investment Income,120.50,20251229001,Monthly yield
+2025-12-30,DEBIT,Mobile Phone Bill,-79.99,20251230001,December bill
