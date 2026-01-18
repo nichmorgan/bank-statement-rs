@@ -176,8 +176,6 @@ impl Parser for CustomParser {
 // 5. Implement TryFrom<CustomTransaction> for Transaction (optional)
 ```
 
-See [CLAUDE.md](CLAUDE.md) for detailed step-by-step instructions on adding new parsers.
-
 ## Examples
 
 See the [examples](examples/) directory for more usage examples:
